@@ -6,6 +6,7 @@ Tools for working with MongoDB outputs
 ### What's Here?
 * [currentOp-digest](README.md#currentop-digest)
 * [drop.js](README.md#drop.js)
+* [preflight](README.md#preflight)
 
 Allows you to digest the output of db.currentOp into a JSON one liner. Great for doing quick analysis.
 
@@ -38,4 +39,8 @@ drop.js
 ---------------
 Simple script to drop all databases excluding those listed in the exclusions array.
 Will give you 10seconds to review listed names that will be dropped before executing.
-Executed by running with mongo shell. I.E. mongo <URI> drop.js
+Executed by running with mongo shell. I.E. mongo [URI] drop.js
+
+preflight
+---------------
+JavaScripts designed to check for issues you will encounter when upgrading/downgrading
