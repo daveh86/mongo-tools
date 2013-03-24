@@ -5,6 +5,7 @@ Tools for working with MongoDB outputs
 
 ### What's Here?
 * [currentOp-digest](README.md#currentop-digest)
+* [drop.js](README.md#drop.js)
 
 Allows you to digest the output of db.currentOp into a JSON one liner. Great for doing quick analysis.
 
@@ -32,3 +33,9 @@ The following arguments can be added to help query out specific types of operati
 * --xns NS ~ operations not performed on namespace NS
 * --nsNotNill ~ operations performed on a namespace which does not evaluate to ""
 * --lim L ~ list only the top L operations for each of the initial batches
+
+drop.js
+---------------
+Simple script to drop all databases excluding those listed in the exclusions array.
+Will give you 10seconds to review listed names that will be dropped before executing.
+Executed by running with mongo shell. I.E. mongo <URI> drop.js
