@@ -50,6 +50,9 @@ OptionParser.new do |opts|
   opts.on("--lim lim", Integer, "Display the top how many?") do |v|
     options[:limit] = v
   end
+  opts.on("--json", "Output in JSON for import to a MongoDB instance") do |v|
+    options[:json] = v
+  end
 end.parse!
 
 if ARGV[0] == NIL
@@ -224,19 +227,54 @@ object.each do |key|
   end
 end
 
-
+#Output Section
 if options[:read] != NIL
-  puts readArray.sort_by { |k| k["lockStats"]["timeLockedMicros"]["r"] }
+  readArray.sort_by { |k| k["lockStats"]["timeLockedMicros"]["r"] }
+  if options[:json]
+    readArray.each do |jsout|
+      puts Yajl::Encoder.encode(jsout)
+    end
+  else
+    puts readArray
+  end
 end
 if options[:write] != NIL
-  puts writeArray.sort_by { |k| k["lockStats"]["timeLockedMicros"]["w"] }
+  writeArray.sort_by { |k| k["lockStats"]["timeLockedMicros"]["w"] }
+  if options[:json]
+    writeArray.each do |jsout|
+      puts Yajl::Encoder.encode(jsout)
+    end
+  else
+    puts writeArray
+  end
 end
 if options[:seconds] != NIL
-  puts secsArray.sort_by { |k| k["secs_running"] }
+  secsArray.sort_by { |k| k["secs_running"] }
+  if options[:json]
+    secsArray.each do |jsout|
+      puts Yajl::Encoder.encode(jsout)
+    end
+  else
+    puts secsArray
+  end
 end
 if options[:yield] != NIL
-  puts yieldsArray.sort_by { |k| k["numYields"] }
+  yieldsArray.sort_by { |k| k["numYields"] }
+  if options[:json]
+    yieldsArray.each do |jsout|
+      puts Yajl::Encoder.encode(jsout)
+    end
+  else
+    puts yieldsArray
+  end
+
 end
 if options[:seconds] == NIL && options[:read] == NIL && options[:write] == NIL && options[:yield] == NIL
-  puts allArray
+  if options[:json]
+    allArray.each do |jsout|
+      puts Yajl::Encoder.encode(jsout)
+    end
+  else
+    puts allArray
+  end
 end

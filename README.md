@@ -36,6 +36,9 @@ The following arguments can be added to help query out specific types of operati
 * --xns NS ~ operations not performed on namespace NS
 * --nsNotNill ~ operations performed on a namespace which does not evaluate to ""
 * --lim L ~ list only the top L operations for each of the initial batches
+* --json ~ Output in JSON format for import to MongoDB.
+	ruby currentOp-digest.rb <file> | mongoimport -d <database> -c <collection>
+
 
 drop.js
 ---------------
