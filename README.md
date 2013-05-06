@@ -7,6 +7,8 @@ Tools for working with MongoDB outputs
 * [currentOp-digest](README.md#currentop-digest)
 * [drop.js](README.md#drop.js)
 * [preflight](README.md#preflight)
+* [connectivity-tester](connectivity-tester/README.md)
+* [renameReplset.sh](README.md#renameReplset.sh)
 
 Allows you to digest the output of db.currentOp into a JSON one liner. Great for doing quick analysis.
 
@@ -44,3 +46,13 @@ Executed by running with mongo shell. I.E. mongo [URI] drop.js
 preflight
 ---------------
 JavaScripts designed to check for issues you will encounter when upgrading/downgrading
+
+renameReplset.sh
+---------------
+Helper script to perform a rename of a replica set. Not suitable for a replSet that is a shard.
+Process for usage of this script should be:
+* Perform a backup
+* Modify script with and set the host string, OLDNAME and NEWNAME values
+* Shutdown all hosts and remove the --replSet argument and start them again to place nodes in standalone mode
+* Execute script
+* Start hosts as normal and confirm replica set name has changed

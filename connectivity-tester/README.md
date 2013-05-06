@@ -14,14 +14,13 @@ Allows you to digest the output of db.currentOp into a JSON one liner. Great for
 
 compilation
 --------------
-The following commands can be used to compile the client and server respectively
- g++ -w client.cpp -o client
- g++ -w server.cpp -o server
+	g++ -w client.cpp -o client
+	g++ -w server.cpp -o server
 
 usage
 --------------
-server <port>
-client <servers ip> <port>
+	server <port>
+	client <servers ip> <port>
 
 Run the server, then the client. You will see messages detailing the establishment of a connection.
 Once connected the client and server will start sending a short message back and forth between themselves.
