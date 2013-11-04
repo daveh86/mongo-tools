@@ -3,17 +3,23 @@
 require 'net/ldap'	# gem install net-ldap
 require 'mongo'		# gem install mongo
 
-ARGV.each do|arg|
-  p "Argument: #{arg}"
-end
+mongouri = ARGV[0]
+ldapuri = ARGV[1]
 
 #Temporary hard coding for ldap entries
-ldapstring = "10gensyd1.syd:389"
-ldapuser = "cn=Admin,dc=nodomain"
-ldappass = "testtesttest"
-mongouri = 'mongodb://mongoAdmin:password@10gensyd1.syd:27018/$external'
-ldapMongoDn = "ou=MongoDB,dc=nodomain"
+#ldapstring = "10gensyd1.syd:389"
+#ldapuser = "cn=Admin,dc=nodomain"
+#ldappass = "testtesttest"
+#ldapMongoDn = "ou=MongoDB,dc=nodomain"
 
+#MongoDB URI Format mongodb://username:password@host:port/db
+#mongouri = 'mongodb://mongoAdmin:password@10gensyd1.syd:27018/$external'
+
+#LDAP URI Format ldap://user:password@host:port/mongoDN
+#ldapuri = "ldap://cn=Admin,dc=nodomain:testtesttest@10gensyd1.syd:389/ou=MongoDB,dc=nodomain"
+
+#Quick parse for the ldap details
+ldapuser,ldappass,ldapstring,ldapMongoDn = /^ldap:\/\/(.+):(.+)@(.+)\/(.+)$/.match(ldapuri).captures
 
 #Ldap Connection Information
 ldap = Net::LDAP.new
