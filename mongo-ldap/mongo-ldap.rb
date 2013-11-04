@@ -60,11 +60,9 @@ end
 mongo = Mongo::MongoClient.from_uri(mongouri)
 #Grab the users
 col = mongo["admin"]["system.users"]
-col.find().each do |user|
+col.find({"_id" => /^\$external/ }).each do |user|
   #If this is an externally managed user, add it to our hash
-  if user["_id"].start_with? "$external"
-    dbPermissions[user["user"]] = user
-  end
+  dbPermissions[user["user"]] = user
 end
 
 #Cant delete from an iterative loop mid-flight, so we need to maintain a list of things to delete
@@ -145,9 +143,9 @@ permissionsStructure.each_key do |userName|
 end
 permissionsStructure.clear
 
-#Execute the 
+#Execute the commands needed to bring mongo into line
+externalDB = mongo["$external"]
 commandsToExecute.each do |cmd|
-  externalDB = mongo["$external"]
   p "Executing: #{cmd}"
   res = externalDB.command(cmd)
   if res["ok"] != 1
