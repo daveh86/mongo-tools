@@ -169,17 +169,17 @@ object.each do |key|
       if key["lockStats"]
         #Find Write Locks
         if key["lockStats"]["timeLockedMicros"].has_key? "w"
-          if key["lockStats"]["timeLockedMicros"]["w"] > options[:write]
+          if key["lockStats"]["timeLockedMicros"]["w"].to_i > options[:write] && key["lockStats"]["timeLockedMicros"]["w"] != nil
             writeArray << key
           end
         end
         if key["lockStats"]["timeLockedMicros"].has_key? "W"
-          if key["lockStats"]["timeLockedMicros"]["W"] > options[:write]
+          if key["lockStats"]["timeLockedMicros"]["W"].to_i > options[:write] && key["lockStats"]["timeLockedMicros"]["W"] != nil
             writeArray << key
           end
         end
         if key["lockStats"]["timeLockedMicros"].has_key? "write"
-          if key["lockStats"]["timeLockedMicros"]["write"] > options[:write]
+          if key["lockStats"]["timeLockedMicros"]["write"] > options[:write] && key["lockStats"]["timeLockedMicros"]["write"] != nil
             writeArray << key
           end
         end
@@ -239,7 +239,14 @@ if options[:read] != NIL
   end
 end
 if options[:write] != NIL
-  writeArray.sort_by { |k| k["lockStats"]["timeLockedMicros"]["w"] }
+  writeArray.sort_by {
+    |k|
+		if k["lockStats"]["timeLockedMicros"]["w"]!= nil
+   		  k["lockStats"]["timeLockedMicros"]["w"].to_i 
+                else 
+                  k["lockStats"]["timeLockedMicros"]["W"].to_i 
+                end
+ }
   if options[:json]
     writeArray.each do |jsout|
       puts Yajl::Encoder.encode(jsout)
