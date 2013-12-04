@@ -1,13 +1,11 @@
 connectivity-tester
 ===========
 
-Simple TCP client and server appplication for testing network connectivity
+Simple TCP client and server application for testing network connectivity
 
 ### What's Here?
 * [client.cpp](README.md#usage)
 * [server.cpp](README.md#usage)
-
-Allows you to digest the output of db.currentOp into a JSON one liner. Great for doing quick analysis.
 
 ### Requirements
 - GNU build tools
